@@ -383,7 +383,7 @@ export const startTransferTimer = onCall(
       }
 
       const now = Date.now();
-      const transferReadyTime = now + 10 * 1000;
+      const transferReadyTime = now + 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
 
       await admin.firestore().collection("chats").doc(chatId).update({
         transferTimerStarted: true,

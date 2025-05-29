@@ -147,11 +147,11 @@ export default function Home() {
         setError(null);
         setIsLoading(true);
 
-        // Create the query
+        // Create the query - გავზარდოთ ლიმიტი მაქსიმალურად
         const q = query(
           collection(db, "products"),
           orderBy("createdAt", "desc"),
-          limit(50)
+          limit(1000) // ლიმიტი გავზარდეთ 1000-მდე
         );
 
         // Execute the query
@@ -160,6 +160,11 @@ export default function Home() {
           id: doc.id,
           ...doc.data()
         })) as Product[];
+
+        // თუ პროდუქტების რაოდენობა მაქსიმუმთან მიახლოებულია, დავამატოთ გაფრთხილება
+        if (productsList.length >= 950) {
+          console.warn("Products count is approaching the query limit. Consider implementing pagination.");
+        }
 
         // შევინახოთ პროდუქტები გლობალურ კეშში
         cachedProducts = productsList;

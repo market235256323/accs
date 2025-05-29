@@ -631,44 +631,26 @@ export default function TransactionsDashboard() {
       </main>
       
       {/* Footer */}
-      <footer className="bg-[#1E1E29] text-white py-8">
+      <footer className="bg-[#1E1E29] text-white py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
             {/* Logo and address */}
             <div>
-              <div className="font-bold text-xl mb-3">Accs-market.com</div>
               <p className="text-gray-300 text-sm">
-                85 First Floor Great Portland Street<br />
-                London, England, W1W 7LT
+                MateSwap LP<br/>
+                Address: 85 First Floor Great Portland Street, London, England, W1W 7LT
               </p>
             </div>
             
-            {/* Links */}
-            <div className="grid grid-cols-2 gap-4">
-              <Link href="/about" className="text-gray-300 hover:text-white text-sm">About us</Link>
-              <Link href="/escrow" className="text-gray-300 hover:text-white text-sm">Escrow service</Link>
-              <Link href="/sellers" className="text-gray-300 hover:text-white text-sm">Sellers</Link>
-              <Link href="/contact" className="text-gray-300 hover:text-white text-sm">Contact us</Link>
-              <Link href="/terms" className="text-gray-300 hover:text-white text-sm">Terms and Conditions</Link>
-              <Link href="/privacy" className="text-gray-300 hover:text-white text-sm">Privacy Policy</Link>
+            {/* Links - გადატანილია მარჯვნივ */}
+            <div className="flex space-x-6 mt-4 md:mt-0">
+              <Link href="/terms" className="text-gray-300 hover:text-white text-sm">
+                Terms and Conditions
+              </Link>
+              <Link href="/privacy" className="text-gray-300 hover:text-white text-sm">
+                Privacy Policy
+              </Link>
             </div>
-            
-            {/* Newsletter (optional) */}
-            <div>
-              <h3 className="font-medium text-lg mb-3">Stay Updated</h3>
-              <div className="flex">
-                <input 
-                  type="email" 
-                  placeholder="Your email" 
-                  className="px-3 py-2 text-black rounded-l focus:outline-none" 
-                />
-                <button className="bg-[#6345ED] px-4 py-2 rounded-r">Subscribe</button>
-              </div>
-            </div>
-          </div>
-          
-          <div className="mt-8 border-t border-gray-700 pt-6 text-center text-sm text-gray-400">
-            &copy; {new Date().getFullYear()} Accs-market.com. All rights reserved.
           </div>
         </div>
       </footer>

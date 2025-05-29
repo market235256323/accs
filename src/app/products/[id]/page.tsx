@@ -584,22 +584,57 @@ Payment Method: ${paymentMethod === 'stripe' ? 'Visa/MasterCard' : 'Bitcoin'}`,
   const handleDeleteListing = async () => {
     if (!user || !product) return;
     
-    if (user.id !== product.userId) {
-      // alert("You can only delete your own listings");
+    if (user.id !== product.userId && !user.isAdmin) {
+      // მხოლოდ მფლობელს ან ადმინს შეუძლია წაშლა
+      alert("მხოლოდ პროდუქტის მფლობელს ან ადმინისტრატორს შეუძლია წაშლა");
       return;
     }
     
-    const confirmDelete = window.confirm("Are you sure you want to delete this listing?");
+    const confirmDelete = window.confirm("ნამდვილად გსურთ ამ პროდუქტის წაშლა?");
     if (!confirmDelete) return;
     
     try {
       setDeleteLoading(true);
+      
+      // 1. ჯერ ვშლით პროდუქტს Firestore-დან
       await deleteDoc(doc(db, "products", product.id));
-      // alert("Listing deleted successfully");
+      
+      // 2. ვშლით ყველა ფავორიტს, რომელიც ამ პროდუქტზე მიუთითებს
+      const favoritesQuery = query(
+        collection(db, "favorites"),
+        where("productId", "==", product.id)
+      );
+      
+      const favoritesSnapshot = await getDocs(favoritesQuery);
+      const deletePromises: Promise<any>[] = [];
+      
+      favoritesSnapshot.forEach(doc => {
+        deletePromises.push(deleteDoc(doc.ref));
+      });
+      
+      // 3. ვშლით ყველა მომხმარებლის ფავორიტებიდან
+      const userFavoritesQuery = query(
+        collection(db, "users")
+      );
+      
+      const usersSnapshot = await getDocs(userFavoritesQuery);
+      usersSnapshot.forEach(userDoc => {
+        const userFavoriteRef = doc(db, "users", userDoc.id, "favorites", product.id);
+        deletePromises.push(getDoc(userFavoriteRef).then(favoriteDoc => {
+          if (favoriteDoc.exists()) {
+            return deleteDoc(userFavoriteRef);
+          }
+          return Promise.resolve();
+        }));
+      });
+      
+      await Promise.all(deletePromises);
+      
+      // alert("ჩანაწერი წაიშალა წარმატებით");
       router.push("/");
     } catch (err) {
       console.error("Error deleting listing:", err);
-      // alert("Failed to delete listing. Please try again.");
+      alert("პროდუქტის წაშლის დროს მოხდა შეცდომა. გთხოვთ სცადოთ თავიდან.");
     } finally {
       setDeleteLoading(false);
     }

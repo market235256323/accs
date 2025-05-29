@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "projec-cca43"
-  }
+    "default": "projec-cca43",
+    "sa": "projec-cca43"
+  },
+  "targets": {},
+  "etags": {}
 }
