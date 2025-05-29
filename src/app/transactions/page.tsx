@@ -631,21 +631,16 @@ export default function TransactionsDashboard() {
       </main>
       
       {/* Footer */}
-      <footer className="bg-[#1E1E29] text-white py-6">
+      <footer className="bg-[#1E1E29] text-white py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            {/* Logo and address */}
-            <div>
-              <p className="text-gray-300 text-sm">
-                MateSwap LP<br/>
-                Address: 85 First Floor Great Portland Street, London, England, W1W 7LT
-              </p>
+            <div className="mb-2 md:mb-0">
+              <div className="text-sm">MateSwap LP</div>
+              <div className="text-xs text-gray-400">Address: 85 First Floor Great Portland Street, London, England, W1W 7LT</div>
             </div>
-            
-            {/* Links - გადატანილია მარჯვნივ */}
-            <div className="flex space-x-6 mt-4 md:mt-0">
+            <div className="flex space-x-6">
               <Link href="/terms" className="text-gray-300 hover:text-white text-sm">
-                Terms and Conditions
+                Terms of Service
               </Link>
               <Link href="/privacy" className="text-gray-300 hover:text-white text-sm">
                 Privacy Policy

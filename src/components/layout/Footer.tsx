@@ -10,7 +10,7 @@ export default function Footer() {
         </div>
         <div className="flex space-x-4">
           <Link href="/terms" className="text-xs hover:text-gray-300 transition-colors">
-            Terms and Conditions
+            Terms of Service
           </Link>
           <Link href="/privacy" className="text-xs hover:text-gray-300 transition-colors">
             Privacy Policy
